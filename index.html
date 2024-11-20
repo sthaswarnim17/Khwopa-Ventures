@@ -5,39 +5,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hidden Treasures Explorer</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Custom CSS for map */
+    #map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-    
   <header>
     <h1>Welcome to Hidden Treasures Explorer</h1>
     <p>Discover Bhaktapur like never before!</p>
   </header>
+
   <nav>
     <a href="index.html">Home</a>
     <a href="about.html">Hidden Gems</a>
     <a href="contact.html">Contact</a>
   </nav>
+
   <section>
     <h2>Explore Bhaktapur</h2>
     <p>Find hidden gems, learn cultural stories, and connect with locals.</p>
-    <button>Start Exploring</button>
+    <button onclick="startExploring()">Start Exploring</button>
+    
+    <!-- Interactive Map Section -->
+    <h3>Interactive Map</h3>
+    <div id="map"></div>
+    
+    <p>Click on the markers to learn more about each site!</p>
   </section>
-  <section>
-    <h2>Interactive Map</h2>
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=Bhaktapur"
-      width="600"
-      height="450"
-      style="border:0;"
-      allowfullscreen=""
-      loading="lazy">
-    </iframe>
-  </section>
-  
+
   <footer>
     <p>&copy; 2024 Khwopa Ventures</p>
   </footer>
-  
+
+  <!-- Google Maps Script -->
+  <script>
+    function initMap() {
+      const bhaktapur = { lat: 27.672, lng: 85.429 }; // Coordinates for Bhaktapur
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 14,
+        center: bhaktapur,
+      });
+
+      // Markers for tourist spots
+      const landmarks = [
+        { name: "Nyatapola Temple", lat: 27.671, lng: 85.429 },
+        { name: "Pottery Square", lat: 27.672, lng: 85.428 },
+      ];
+
+      // Add markers to map
+      landmarks.forEach(landmark => {
+        const marker = new google.maps.Marker({
+          position: { lat: landmark.lat, lng: landmark.lng },
+          map: map,
+          title: landmark.name,
+        });
+        marker.addListener("click", () => {
+          alert("You clicked on " + landmark.name);
+        });
+      });
+    }
+
+    function startExploring() {
+      alert("Welcome to Bhaktapur! Use the map to explore hidden gems.");
+    }
+  </script>
+
+  <!-- Google Maps API -->
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWcMiftPNBkHlye2M6pID8yJZnkWOzwqg&callback=initMap">
+  </script>
 </body>
 </html>
-
